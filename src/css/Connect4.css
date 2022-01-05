@@ -1,0 +1,8 @@
+.board {
+  background-color: #ffc5cf;
+  width: 700px;
+  height: 600px;
+  margin: 80px auto 0;
+  padding: 30px;
+  border-radius: 15px;
+}
