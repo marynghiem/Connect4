@@ -8,7 +8,56 @@
 }
 
 .grid-item {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   display: inline-block;
+}
+
+#heart {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 15px 15px 15px 15px;
+}
+
+#heart:before {
+  position: absolute;
+  content: "";
+  left: 40px;
+  top: 0;
+  width: 40px;
+  height: 70px;
+  background: white;
+  border-radius: 50px 50px 0 0; /* make the top edge round */
+  -webkit-transform: rotate(-45deg); /* 45 degrees rotation counter clockwise */
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: left bottom; /* Rotate it around the bottom-left corner */
+  -moz-transform-origin: left bottom;
+  -ms-transform-origin: left bottom;
+  -o-transform-origin: left bottom;
+  transform-origin: left bottom;
+}
+
+#heart:after {
+  position: absolute;
+  content: ""; /*shows content on page without html*/
+  top: 0;
+  left: 0; /* placing the right part properly */
+  width: 40px;
+  height: 70px;
+  background: white;
+  border-radius: 50px 50px 0 0; /* make the top edge round */
+  -webkit-transform: rotate(45deg); /* rotating 45 degrees clockwise */
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform-origin: right bottom; /* rotation is around bottom-right corner this time */
+  -moz-transform-origin: right bottom;
+  -ms-transform-origin: right bottom;
+  -o-transform-origin: right bottom;
+  transform-origin: right bottom;
 }

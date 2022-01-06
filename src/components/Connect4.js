@@ -23,7 +23,7 @@ export const Connect4 = () => {
       {slots.map((row, rowIdx) =>
         row.map((slot, colIdx) => (
           <div className="grid-item" key={rowIdx + "," + colIdx}>
-            {slot}
+            <div id="heart"></div>
           </div>
         ))
       )}
