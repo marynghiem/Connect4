@@ -13,14 +13,14 @@
   display: inline-block;
 }
 
-#heart {
+.heart {
   position: relative;
   width: 80px;
   height: 80px;
   margin: 15px 15px 15px 15px;
 }
 
-#heart:before {
+.heart:before {
   position: absolute;
   content: "";
   left: 40px;
@@ -41,7 +41,7 @@
   transform-origin: left bottom;
 }
 
-#heart:after {
+.heart:after {
   position: absolute;
   content: ""; /*shows content on page without html*/
   top: 0;
@@ -60,4 +60,14 @@
   -ms-transform-origin: right bottom;
   -o-transform-origin: right bottom;
   transform-origin: right bottom;
+}
+
+.redHeart:before,
+.redHeart:after {
+  background: #f73831;
+}
+
+.blueHeart:before,
+.blueHeart:after {
+  background: #73c0f3;
 }
