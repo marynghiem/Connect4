@@ -43,9 +43,24 @@ export const Connect4 = () => {
 
   const handleClick = (colIdx) => {
     const newSlots = [...slots];
-    newSlots[DEFAULT_ROWS_IN_CONNECT_4 - 1][colIdx] = player;
+    newSlots[lowestRow(colIdx)][colIdx] = player;
     setSlots(newSlots);
     togglePlayer();
+  };
+
+  const lowestRow = (columnNum) => {
+    //for loop through rows starting at defaultrows-1
+    for (let i = DEFAULT_ROWS_IN_CONNECT_4 - 1; i > -1; i--) {
+      if (slots[i][columnNum] === 0) {
+        return i;
+      }
+    }
+    // check value of slot if it is equal to 0
+    //use slots[i][colIdx] to find slot value
+    // if equal to 0, return that index
+    // keep looping until you find 0
+    // if 1 or 2, ignore
+    //
   };
 
   return (
@@ -60,10 +75,8 @@ export const Connect4 = () => {
               slot,
               colIdx // loop through each column - each item is a 0, 1, or 2
             ) => (
-              <div className="grid-item" key={rowIdx + "," + colIdx}>
-                <div className={changeColor(rowIdx, colIdx)} onClick={() => handleClick(colIdx)}>
-                  {slot}
-                </div>
+              <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick(colIdx)}>
+                <div className={changeColor(rowIdx, colIdx)}>{slot}</div>
               </div>
             )
           )
