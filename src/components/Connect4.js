@@ -98,7 +98,7 @@ export const Connect4 = () => {
     }
   };
 
-  const checkHorizontalLeft = (i, j) => {
+  const checkHorizontalRight = (i, j) => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
       //checking on right 3 spaces
@@ -125,7 +125,7 @@ export const Connect4 = () => {
     }
   };
 
-  const checkHorizontalRight = (i, j) => {
+  const checkHorizontalLeft = (i, j) => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
       for (let m = 1; m < 4; m++) {
