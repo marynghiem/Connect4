@@ -50,6 +50,7 @@ export const Connect4 = () => {
     newSlots[lowestRow(colIdx)][colIdx] = player;
     setSlots(newSlots);
     togglePlayer();
+    console.log(checkWinner());
   };
 
   const lowestRow = (columnNum) => {
@@ -225,8 +226,7 @@ export const Connect4 = () => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
       for (let m = 1; m < 4; m++) {
-        //if there are no more spaces up
-        if (i - m < 0) {
+        if (i - m < 0 || j - m < 0) {
           return NO_PLAYER;
         } else if (slots[i - m][j - m] !== PLAYER_ONE) {
           return NO_PLAYER;
@@ -235,8 +235,7 @@ export const Connect4 = () => {
       return PLAYER_ONE;
     } else if (player === PLAYER_TWO) {
       for (let m = 1; m < 4; m++) {
-        //if there are no more spaces up
-        if (i - m < 0) {
+        if (i - m < 0 || j - m < 0) {
           return NO_PLAYER;
         } else if (slots[i - m][j - m] !== PLAYER_TWO) {
           return NO_PLAYER;
@@ -248,14 +247,46 @@ export const Connect4 = () => {
   const checkDiagonalTopRight = (i, j) => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
+      for (let k = 1; k < 4; k++) {
+        if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
+          return NO_PLAYER;
+        } else if (slots[i - k][j + k] !== PLAYER_ONE) {
+          return NO_PLAYER;
+        }
+      }
+      return PLAYER_ONE;
     } else if (player === PLAYER_TWO) {
+      for (let k = 1; k < 4; k++) {
+        if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
+          return NO_PLAYER;
+        } else if (slots[i - k][j + k] !== PLAYER_TWO) {
+          return NO_PLAYER;
+        }
+      }
+      return PLAYER_TWO;
     }
   };
 
   const checkDiagonalBottomLeft = (i, j) => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
+      for (let k = 1; k < 4; k++) {
+        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
+          return NO_PLAYER;
+        } else if (slots[i + k][j - k] !== PLAYER_ONE) {
+          return NO_PLAYER;
+        }
+      }
+      return PLAYER_ONE;
     } else if (player === PLAYER_TWO) {
+      for (let k = 1; k < 4; k++) {
+        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
+          return NO_PLAYER;
+        } else if (slots[i + k][j - k] !== PLAYER_TWO) {
+          return NO_PLAYER;
+        }
+      }
+      return PLAYER_TWO;
     }
   };
 
@@ -263,7 +294,7 @@ export const Connect4 = () => {
     const player = slots[i][j];
     if (player === PLAYER_ONE) {
       for (let k = 1; k < 4; k++) {
-        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
+        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
           return NO_PLAYER;
         } else if (slots[i + k][j + k] !== PLAYER_ONE) {
           return NO_PLAYER;
@@ -272,7 +303,7 @@ export const Connect4 = () => {
       return PLAYER_ONE;
     } else if (player === PLAYER_TWO) {
       for (let k = 1; k < 4; k++) {
-        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
+        if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
           return NO_PLAYER;
         } else if (slots[i + k][j + k] !== PLAYER_TWO) {
           return NO_PLAYER;
