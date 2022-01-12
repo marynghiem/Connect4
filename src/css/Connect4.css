@@ -1,8 +1,8 @@
 .board {
-  background-color: #ffc5cf;
+  background-color: pink;
   width: 700px;
   height: 600px;
-  margin: 80px auto 0;
+  margin: auto;
   padding: 30px;
   border-radius: 15px;
 }
@@ -27,7 +27,7 @@
   top: 0;
   width: 40px;
   height: 70px;
-  background: white;
+  background: #fff6f7;
   border-radius: 50px 50px 0 0; /* make the top edge round */
   -webkit-transform: rotate(-45deg); /* 45 degrees rotation counter clockwise */
   -moz-transform: rotate(-45deg);
@@ -48,7 +48,7 @@
   left: 0; /* placing the right part properly */
   width: 40px;
   height: 70px;
-  background: white;
+  background: #fff6f7;
   border-radius: 50px 50px 0 0; /* make the top edge round */
   -webkit-transform: rotate(45deg); /* rotating 45 degrees clockwise */
   -moz-transform: rotate(45deg);
@@ -70,4 +70,24 @@
 .blueHeart:before,
 .blueHeart:after {
   background: #73c0f3;
+}
+
+.button {
+  border-style: solid;
+  border-width: 0px 0px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: pink;
+  border-color: rgb(247, 121, 142);
+  margin: 10px;
+  font-size: 1.2em;
+  font-family: "Lobster Two", cursive;
+  height: 42px;
+}
+
+.button:hover {
+  background-color: rgb(247, 121, 142);
+  border-color: rgba(0, 0, 0, 0.5);
 }
