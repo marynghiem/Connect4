@@ -1,3 +1,12 @@
+.titleName {
+  font-family: Times, Times New Roman, serif;
+  font-size: 60px;
+  margin: 0px;
+  color: pink;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff,
+    -1px 1px 0 #fff;
+}
+
 .board {
   background-color: pink;
   width: 700px;

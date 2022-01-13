@@ -27,6 +27,11 @@ export const checkWinner = (slots) => {
 
 //Return the player that won the game at this cell
 const checkWinnerAtCell = (i, j, slots) => {
+  //typeOfWinner = []
+  //const typeOfWinner = typeOfWinner(i,j,slots);
+  //if (typeOfWinner !== NO_PLAYER) {
+  // return typeOfWinner;
+  //}
   const horizontalWinner = checkHorizontal(i, j, slots);
   if (horizontalWinner !== NO_PLAYER) {
     console.log("horizontal win");
@@ -59,57 +64,27 @@ const checkHorizontal = (i, j, slots) => {
 };
 
 const checkHorizontalRight = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    //checking on right 3 spaces
-    for (let k = 1; k < 4; k++) {
-      //if there is no more spaces to left
-      if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i][j + k] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let k = 1; k < 4; k++) {
+    if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
+      return NO_PLAYER;
+    } else if (slots[i][j + k] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    //checking on right 3 spaces
-    for (let k = 1; k < 4; k++) {
-      //if there is no more spaces to left
-      if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i][j + k] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkHorizontalLeft = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let m = 1; m < 4; m++) {
-      //if there are no more spaces to right
-      if (j - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i][j - m] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let m = 1; m < 4; m++) {
+    if (j - m < 0) {
+      return NO_PLAYER;
+    } else if (slots[i][j - m] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let m = 1; m < 4; m++) {
-      //if there are no more spaces to right
-      if (j - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i][j - m] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkVertical = (i, j, slots) => {
@@ -123,52 +98,27 @@ const checkVertical = (i, j, slots) => {
 };
 
 const checkVerticalUp = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let m = 1; m < 4; m++) {
-      //if there are no more spaces up
-      if (i - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - m][j] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let m = 1; m < 4; m++) {
+    if (i - m < 0) {
+      return NO_PLAYER;
+    } else if (slots[i - m][j] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let m = 1; m < 4; m++) {
-      //if there are no more spaces up
-      if (i - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - m][j] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
+
 const checkVerticalDown = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let k = 1; k < 4; k++) {
+    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
+      return NO_PLAYER;
+    } else if (slots[i + k][j] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkDiagonal = (i, j, slots) => {
@@ -188,97 +138,49 @@ const checkDiagonal = (i, j, slots) => {
 };
 
 const checkDiagonalTopLeft = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let m = 1; m < 4; m++) {
-      if (i - m < 0 || j - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - m][j - m] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let m = 1; m < 4; m++) {
+    if (i - m < 0 || j - m < 0) {
+      return NO_PLAYER;
+    } else if (slots[i - m][j - m] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let m = 1; m < 4; m++) {
-      if (i - m < 0 || j - m < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - m][j - m] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkDiagonalTopRight = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let k = 1; k < 4; k++) {
-      if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - k][j + k] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let k = 1; k < 4; k++) {
+    if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
+      return NO_PLAYER;
+    } else if (slots[i - k][j + k] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let k = 1; k < 4; k++) {
-      if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
-        return NO_PLAYER;
-      } else if (slots[i - k][j + k] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkDiagonalBottomLeft = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j - k] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let k = 1; k < 4; k++) {
+    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
+      return NO_PLAYER;
+    } else if (slots[i + k][j - k] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j - k] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };
 
 const checkDiagonalBottomRight = (i, j, slots) => {
-  const player = slots[i][j];
-  if (player === PLAYER_ONE) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j + k] !== PLAYER_ONE) {
-        return NO_PLAYER;
-      }
+  const playerAtFirstSlot = slots[i][j];
+  for (let k = 1; k < 4; k++) {
+    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
+      return NO_PLAYER;
+    } else if (slots[i + k][j + k] !== playerAtFirstSlot) {
+      return NO_PLAYER;
     }
-    return PLAYER_ONE;
-  } else if (player === PLAYER_TWO) {
-    for (let k = 1; k < 4; k++) {
-      if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
-        return NO_PLAYER;
-      } else if (slots[i + k][j + k] !== PLAYER_TWO) {
-        return NO_PLAYER;
-      }
-    }
-    return PLAYER_TWO;
   }
-  return NO_PLAYER;
+  return playerAtFirstSlot;
 };

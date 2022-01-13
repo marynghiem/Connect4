@@ -1,5 +1,5 @@
 import "../css/Connect4.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   checkWinner,
   DEFAULT_COLS_IN_CONNECT_4,
@@ -7,6 +7,7 @@ import {
   PLAYER_ONE,
   PLAYER_TWO,
   isGameBoardFull,
+  NO_PLAYER,
 } from "../game_logic/connect4Logic";
 
 const create2DArray = (rowNum, columnNum) => {
@@ -71,6 +72,30 @@ export const Connect4 = () => {
     console.log(checkWinner(slots));
   };
 
+  useEffect(() => {
+    if (checkWinner(slots) === PLAYER_ONE) {
+      alert("Player one wins!");
+    } else if (checkWinner(slots) === PLAYER_TWO) {
+      alert("Player two wins!");
+    } else if (isGameBoardFull(slots) === true) {
+      alert("Gameboard is full. There is a tie!");
+    }
+  }, [slots]);
+
+  const handleClick2 = (colIdx) => {
+    if (checkWinner(slots) !== NO_PLAYER || isGameBoardFull(slots)) {
+      return;
+    } else if (lowestRow(colIdx) === undefined) {
+      alert("Column is full!");
+      return;
+    }
+
+    const newSlots = [...slots];
+    newSlots[lowestRow(colIdx)][colIdx] = player;
+    setSlots(newSlots);
+    togglePlayer();
+  };
+
   const lowestRow = (columnNum) => {
     for (let i = DEFAULT_ROWS_IN_CONNECT_4 - 1; i > -1; i--) {
       if (slots[i][columnNum] === 0) {
@@ -98,7 +123,7 @@ export const Connect4 = () => {
                 slot,
                 colIdx // loop through each column - each item is a 0, 1, or 2
               ) => (
-                <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick(colIdx)}>
+                <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick2(colIdx)}>
                   <div className={changeHeartColor(rowIdx, colIdx)}></div>
                 </div>
               )
