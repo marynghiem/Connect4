@@ -13,6 +13,18 @@ export const isGameBoardFull = (slots) => {
   return true;
 };
 
+const checkOutsideBoardBoundaries = (rowIndex, colIndex) => {
+  if (
+    rowIndex < 0 ||
+    rowIndex > DEFAULT_ROWS_IN_CONNECT_4 - 1 ||
+    colIndex < 0 ||
+    colIndex > DEFAULT_COLS_IN_CONNECT_4 - 1
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export const checkWinner = (slots) => {
   for (let i = DEFAULT_ROWS_IN_CONNECT_4 - 1; i > -1; i--) {
     for (let j = 0; j < DEFAULT_COLS_IN_CONNECT_4; j++) {
@@ -29,17 +41,14 @@ export const checkWinner = (slots) => {
 const checkWinnerAtCell = (i, j, slots) => {
   const horizontalWinner = checkHorizontal(i, j, slots);
   if (horizontalWinner !== NO_PLAYER) {
-    console.log("horizontal win");
     return horizontalWinner;
   }
   const verticalWinner = checkVertical(i, j, slots);
   if (verticalWinner !== NO_PLAYER) {
-    console.log("vertical win");
     return verticalWinner;
   }
   const diagonalWinner = checkDiagonal(i, j, slots);
   if (diagonalWinner !== NO_PLAYER) {
-    console.log("diagonal win");
     return diagonalWinner;
   }
   return NO_PLAYER;
@@ -47,12 +56,9 @@ const checkWinnerAtCell = (i, j, slots) => {
 
 const checkHorizontal = (i, j, slots) => {
   if (checkHorizontalLeft(i, j, slots) !== NO_PLAYER) {
-    console.log("left");
     return checkHorizontalLeft(i, j, slots);
   }
   if (checkHorizontalRight(i, j, slots) !== NO_PLAYER) {
-    console.log("right");
-    console.log(i, j);
     return checkHorizontalRight(i, j, slots);
   }
   return NO_PLAYER;
@@ -61,7 +67,7 @@ const checkHorizontal = (i, j, slots) => {
 const checkHorizontalRight = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
   for (let k = 1; k < 4; k++) {
-    if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
+    if (checkOutsideBoardBoundaries(i, j + k)) {
       return NO_PLAYER;
     } else if (slots[i][j + k] !== playerAtFirstSlot) {
       return NO_PLAYER;
@@ -72,10 +78,10 @@ const checkHorizontalRight = (i, j, slots) => {
 
 const checkHorizontalLeft = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
-  for (let m = 1; m < 4; m++) {
-    if (j - m < 0) {
+  for (let k = 1; k < 4; k++) {
+    if (checkOutsideBoardBoundaries(i, j - k)) {
       return NO_PLAYER;
-    } else if (slots[i][j - m] !== playerAtFirstSlot) {
+    } else if (slots[i][j - k] !== playerAtFirstSlot) {
       return NO_PLAYER;
     }
   }
@@ -94,10 +100,10 @@ const checkVertical = (i, j, slots) => {
 
 const checkVerticalUp = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
-  for (let m = 1; m < 4; m++) {
-    if (i - m < 0) {
+  for (let k = 1; k < 4; k++) {
+    if (checkOutsideBoardBoundaries(i - k, j)) {
       return NO_PLAYER;
-    } else if (slots[i - m][j] !== playerAtFirstSlot) {
+    } else if (slots[i - k][j] !== playerAtFirstSlot) {
       return NO_PLAYER;
     }
   }
@@ -107,7 +113,7 @@ const checkVerticalUp = (i, j, slots) => {
 const checkVerticalDown = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
   for (let k = 1; k < 4; k++) {
-    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1) {
+    if (checkOutsideBoardBoundaries(i + k, j)) {
       return NO_PLAYER;
     } else if (slots[i + k][j] !== playerAtFirstSlot) {
       return NO_PLAYER;
@@ -134,10 +140,10 @@ const checkDiagonal = (i, j, slots) => {
 
 const checkDiagonalTopLeft = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
-  for (let m = 1; m < 4; m++) {
-    if (i - m < 0 || j - m < 0) {
+  for (let k = 1; k < 4; k++) {
+    if (checkOutsideBoardBoundaries(i - k, j - k)) {
       return NO_PLAYER;
-    } else if (slots[i - m][j - m] !== playerAtFirstSlot) {
+    } else if (slots[i - k][j - k] !== playerAtFirstSlot) {
       return NO_PLAYER;
     }
   }
@@ -147,7 +153,7 @@ const checkDiagonalTopLeft = (i, j, slots) => {
 const checkDiagonalTopRight = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
   for (let k = 1; k < 4; k++) {
-    if (j + k > DEFAULT_COLS_IN_CONNECT_4 - 1 || i - k < 0) {
+    if (checkOutsideBoardBoundaries(i - k, j + k)) {
       return NO_PLAYER;
     } else if (slots[i - k][j + k] !== playerAtFirstSlot) {
       return NO_PLAYER;
@@ -159,7 +165,7 @@ const checkDiagonalTopRight = (i, j, slots) => {
 const checkDiagonalBottomLeft = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
   for (let k = 1; k < 4; k++) {
-    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j - k < 0) {
+    if (checkOutsideBoardBoundaries(i + k, j - k)) {
       return NO_PLAYER;
     } else if (slots[i + k][j - k] !== playerAtFirstSlot) {
       return NO_PLAYER;
@@ -171,7 +177,7 @@ const checkDiagonalBottomLeft = (i, j, slots) => {
 const checkDiagonalBottomRight = (i, j, slots) => {
   const playerAtFirstSlot = slots[i][j];
   for (let k = 1; k < 4; k++) {
-    if (i + k > DEFAULT_ROWS_IN_CONNECT_4 - 1 || j + k > DEFAULT_COLS_IN_CONNECT_4 - 1) {
+    if (checkOutsideBoardBoundaries(i + k, j + k)) {
       return NO_PLAYER;
     } else if (slots[i + k][j + k] !== playerAtFirstSlot) {
       return NO_PLAYER;

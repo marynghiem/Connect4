@@ -71,9 +71,10 @@ export const Connect4 = () => {
   };
   //once state is set, then it runs useEffect
   useEffect(() => {
-    if (checkWinner(slots) === PLAYER_ONE) {
+    const winnner = checkWinner(slots);
+    if (winnner === PLAYER_ONE) {
       alert("Player one wins!");
-    } else if (checkWinner(slots) === PLAYER_TWO) {
+    } else if (winnner === PLAYER_TWO) {
       alert("Player two wins!");
     } else if (isGameBoardFull(slots) === true) {
       alert("Gameboard is full. There is a tie!");
