@@ -27,11 +27,6 @@ export const checkWinner = (slots) => {
 
 //Return the player that won the game at this cell
 const checkWinnerAtCell = (i, j, slots) => {
-  //typeOfWinner = []
-  //const typeOfWinner = typeOfWinner(i,j,slots);
-  //if (typeOfWinner !== NO_PLAYER) {
-  // return typeOfWinner;
-  //}
   const horizontalWinner = checkHorizontal(i, j, slots);
   if (horizontalWinner !== NO_PLAYER) {
     console.log("horizontal win");

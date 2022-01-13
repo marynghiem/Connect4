@@ -54,24 +54,22 @@ export const Connect4 = () => {
   };
 
   const handleClick = (colIdx) => {
-    const newSlots = [...slots];
-    if (isGameBoardFull(slots) === true) {
-      alert("Gameboard is full. There is a tie!");
-    } else if (lowestRow(colIdx) === undefined) {
+    //doesnt allow user to play if board is full or if theres a winner
+    if (isGameBoardFull(slots) || checkWinner(slots) !== NO_PLAYER) {
+      return;
+    }
+    //doesnt allow user to add to column if it is full
+    else if (lowestRow(colIdx) === undefined) {
       alert("Column is full!");
       return;
-    } else if (checkWinner(slots) === PLAYER_ONE) {
-      alert("Player one wins!");
-    } else if (checkWinner(slots) === PLAYER_TWO) {
-      alert("Player two wins!");
-    } else {
-      newSlots[lowestRow(colIdx)][colIdx] = player;
-      setSlots(newSlots);
-      togglePlayer();
     }
-    console.log(checkWinner(slots));
+    //sets state first
+    const newSlots = [...slots];
+    newSlots[lowestRow(colIdx)][colIdx] = player;
+    setSlots(newSlots);
+    togglePlayer();
   };
-
+  //once state is set, then it runs useEffect
   useEffect(() => {
     if (checkWinner(slots) === PLAYER_ONE) {
       alert("Player one wins!");
@@ -81,20 +79,6 @@ export const Connect4 = () => {
       alert("Gameboard is full. There is a tie!");
     }
   }, [slots]);
-
-  const handleClick2 = (colIdx) => {
-    if (checkWinner(slots) !== NO_PLAYER || isGameBoardFull(slots)) {
-      return;
-    } else if (lowestRow(colIdx) === undefined) {
-      alert("Column is full!");
-      return;
-    }
-
-    const newSlots = [...slots];
-    newSlots[lowestRow(colIdx)][colIdx] = player;
-    setSlots(newSlots);
-    togglePlayer();
-  };
 
   const lowestRow = (columnNum) => {
     for (let i = DEFAULT_ROWS_IN_CONNECT_4 - 1; i > -1; i--) {
@@ -123,7 +107,7 @@ export const Connect4 = () => {
                 slot,
                 colIdx // loop through each column - each item is a 0, 1, or 2
               ) => (
-                <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick2(colIdx)}>
+                <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick(colIdx)}>
                   <div className={changeHeartColor(rowIdx, colIdx)}></div>
                 </div>
               )
