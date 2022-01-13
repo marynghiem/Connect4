@@ -71,11 +71,29 @@
 .blueHeart:after {
   background: #73c0f3;
 }
+.playersTurn {
+  border-style: solid;
+  border-width: 0px 0px 3px;
+  border-radius: 6px;
+  display: inline-block;
+  background: #f73831;
+  border-color: #a02420;
+  margin: 10px;
+  font-size: 1.2em;
+  height: 37px;
+  font-family: "Lobster Two", cursive;
+  text-align: center;
+  padding: 5px 40px 1px 40px;
+  vertical-align: top;
+}
+.blueTurn {
+  background: #73c0f3;
+  border-color: #5693bb;
+}
 
 .button {
   border-style: solid;
   border-width: 0px 0px 3px;
-  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
   border-radius: 6px;
   cursor: pointer;
   display: inline-block;

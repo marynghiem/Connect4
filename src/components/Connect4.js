@@ -33,7 +33,7 @@ export const Connect4 = () => {
     }
   };
 
-  const changeColor = (rowIdx, colIdx) => {
+  const changeHeartColor = (rowIdx, colIdx) => {
     let slotvalue = slots[rowIdx][colIdx];
     if (slotvalue === 0) {
       return "heart";
@@ -41,6 +41,14 @@ export const Connect4 = () => {
       return "heart redHeart";
     } else if (slotvalue === 2) {
       return "heart blueHeart";
+    }
+  };
+
+  const changePlayersTurnColor = () => {
+    if (player === PLAYER_ONE) {
+      return "playersTurn";
+    } else if (player === PLAYER_TWO) {
+      return "playersTurn blueTurn";
     }
   };
 
@@ -71,6 +79,11 @@ export const Connect4 = () => {
     }
   };
 
+  const handleClearBoard = () => {
+    setSlots(create2DArray(DEFAULT_ROWS_IN_CONNECT_4, DEFAULT_COLS_IN_CONNECT_4));
+    setPlayer(PLAYER_ONE);
+  };
+
   return (
     <div>
       <h1 className="titleName">Connect 4</h1>
@@ -86,13 +99,18 @@ export const Connect4 = () => {
                 colIdx // loop through each column - each item is a 0, 1, or 2
               ) => (
                 <div className="grid-item" key={rowIdx + "," + colIdx} onClick={() => handleClick(colIdx)}>
-                  <div className={changeColor(rowIdx, colIdx)}></div>
+                  <div className={changeHeartColor(rowIdx, colIdx)}></div>
                 </div>
               )
             )
         )}
       </div>
-      <button className="button">Restart Game</button>
+      <div className="playersTurnAndButton">
+        <div className={changePlayersTurnColor()}>Players {player} turn!</div>
+        <button className="button" onClick={handleClearBoard}>
+          Restart Game
+        </button>
+      </div>
     </div>
   );
 };
