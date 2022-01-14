@@ -73,9 +73,13 @@ export const Connect4 = () => {
   useEffect(() => {
     const winnner = checkWinner(slots);
     if (winnner === PLAYER_ONE) {
-      alert("Player one wins!");
+      setTimeout(function () {
+        alert("Player one wins!");
+      }, 520);
     } else if (winnner === PLAYER_TWO) {
-      alert("Player two wins!");
+      setTimeout(function () {
+        alert("Player two wins!");
+      }, 520);
     } else if (isGameBoardFull(slots) === true) {
       alert("Gameboard is full. There is a tie!");
     }
