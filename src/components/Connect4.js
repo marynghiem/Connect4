@@ -54,7 +54,7 @@ export const Connect4 = () => {
     }
   };
 
-  const handleOpenModal = () => {
+  const getModalClassnames = () => {
     const winner = checkWinner(slots);
     if (closeModal === true) {
       return "modal closeModal";
@@ -86,9 +86,6 @@ export const Connect4 = () => {
     newSlots[lowestRow(colIdx)][colIdx] = player;
     setSlots(newSlots);
     togglePlayer();
-    if (closeModal === true) {
-      setCloseModal(false);
-    }
   };
   //once state is set, then it runs useEffect
   useEffect(() => {
@@ -117,6 +114,9 @@ export const Connect4 = () => {
   const handleClearBoard = () => {
     setSlots(create2DArray(DEFAULT_ROWS_IN_CONNECT_4, DEFAULT_COLS_IN_CONNECT_4));
     setPlayer(PLAYER_ONE);
+    if (closeModal === true) {
+      setCloseModal(false);
+    }
   };
 
   return (
@@ -140,11 +140,12 @@ export const Connect4 = () => {
             )
         )}
       </div>
-      <div id="myModal" className={handleOpenModal()}>
+      <div id="myModal" className={getModalClassnames()}>
         <div className="modal-content">
           <span className="close" onClick={handleCloseModal}>
             &times;
           </span>
+          <img src="/penguin_heart.gif" alt="penguin heart gif" width={100} height={100} />
           <p className="congratsStatement">Congrats! Player {checkWinner(slots)} is the winnner!</p>
           <button className="button" onClick={handleClearBoard}>
             Restart Game
