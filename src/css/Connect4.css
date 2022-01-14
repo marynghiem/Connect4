@@ -80,6 +80,20 @@
 .blueHeart:after {
   background: #73c0f3;
 }
+.fall {
+  animation-name: fall-animation;
+  animation-duration: 500ms;
+}
+
+@keyframes fall-animation {
+  from {
+    transform: translateY(-500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 .playersTurn {
   border-style: solid;
   border-width: 0px 0px 3px;

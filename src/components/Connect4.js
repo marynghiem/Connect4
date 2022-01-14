@@ -39,9 +39,9 @@ export const Connect4 = () => {
     if (slotvalue === 0) {
       return "heart";
     } else if (slotvalue === 1) {
-      return "heart redHeart";
+      return "heart redHeart fall";
     } else if (slotvalue === 2) {
-      return "heart blueHeart";
+      return "heart blueHeart fall";
     }
   };
 
