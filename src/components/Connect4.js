@@ -25,6 +25,7 @@ const create2DArray = (rowNum, columnNum) => {
 export const Connect4 = () => {
   const [slots, setSlots] = useState(create2DArray(DEFAULT_ROWS_IN_CONNECT_4, DEFAULT_COLS_IN_CONNECT_4));
   const [player, setPlayer] = useState(PLAYER_ONE);
+  const [closeModal, setCloseModal] = useState(false);
 
   const togglePlayer = () => {
     if (player === PLAYER_ONE) {
@@ -53,6 +54,23 @@ export const Connect4 = () => {
     }
   };
 
+  const handleOpenModal = () => {
+    const winner = checkWinner(slots);
+    if (closeModal === true) {
+      return "modal closeModal";
+    } else if (winner === PLAYER_ONE) {
+      return "modal openModal";
+    } else if (winner === PLAYER_TWO) {
+      return "modal openModal";
+    } else {
+      return "modal";
+    }
+  };
+
+  const handleCloseModal = () => {
+    setCloseModal(true);
+  };
+
   const handleClick = (colIdx) => {
     //doesnt allow user to play if board is full or if theres a winner
     if (isGameBoardFull(slots) || checkWinner(slots) !== NO_PLAYER) {
@@ -68,19 +86,22 @@ export const Connect4 = () => {
     newSlots[lowestRow(colIdx)][colIdx] = player;
     setSlots(newSlots);
     togglePlayer();
+    if (closeModal === true) {
+      setCloseModal(false);
+    }
   };
   //once state is set, then it runs useEffect
   useEffect(() => {
-    const winnner = checkWinner(slots);
-    if (winnner === PLAYER_ONE) {
-      setTimeout(function () {
-        alert("Player one wins!");
-      }, 520);
-    } else if (winnner === PLAYER_TWO) {
-      setTimeout(function () {
-        alert("Player two wins!");
-      }, 520);
-    } else if (isGameBoardFull(slots) === true) {
+    //const winner = checkWinner(slots);
+    //if (winner === PLAYER_ONE) {
+    // setTimeout(function () {
+    //  alert("Player one wins!");
+    //}, 520);
+    //} else if (winner === PLAYER_TWO) {
+    //setTimeout(function () {
+    //alert("Player two wins!");
+    // }, 520);}else
+    if (isGameBoardFull(slots) === true) {
       alert("Gameboard is full. There is a tie!");
     }
   }, [slots]);
@@ -118,6 +139,17 @@ export const Connect4 = () => {
               )
             )
         )}
+      </div>
+      <div id="myModal" className={handleOpenModal()}>
+        <div className="modal-content">
+          <span className="close" onClick={handleCloseModal}>
+            &times;
+          </span>
+          <p className="congratsStatement">Congrats! Player {checkWinner(slots)} is the winnner!</p>
+          <button className="button" onClick={handleClearBoard}>
+            Restart Game
+          </button>
+        </div>
       </div>
       <div className="playersTurnAndButton">
         <div className={changePlayersTurnColor()}>Players {player} turn!</div>
